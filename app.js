@@ -4,7 +4,6 @@ const UI = (function(){
     // Private
     const taskInput = document.getElementById("add-task");
     const saveTaskBtn = document.getElementById("save-task-btn");
-    const closeBtn = document.getElementById("close-modal-btn");
     const newTaskBtn = document.getElementById("new-task-btn");
     const tableBody = document.querySelector("#task-list-table tbody");
 
@@ -40,7 +39,6 @@ const UI = (function(){
     return {
         taskInput,
         saveTaskBtn,
-        closeBtn,
         tableBody,
         createRow,
         createRows
@@ -170,8 +168,8 @@ const App = (function(){
             }
         });
 
-        //Clears value of field when clicking 'Close' on modal
-        UI.closeBtn.addEventListener("click", function(event) {
+        //Clears value of field when the modal has finished being hidden from the user
+        $('#taskModal').on('hidden.bs.modal', function(event) {
             UI.taskInput.value= "";
         });
 
