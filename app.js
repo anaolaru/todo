@@ -3,7 +3,6 @@
 const UI = (function(){
     // Private
     const taskInput = document.getElementById("add-task");
-    const saveTaskBtn = document.getElementById("save-task-btn");
     const newTaskBtn = document.getElementById("new-task-btn");
     const tableBody = document.querySelector("#task-list-table tbody");
 
@@ -38,7 +37,6 @@ const UI = (function(){
     // Public
     return {
         taskInput,
-        saveTaskBtn,
         tableBody,
         createRow,
         createRows
@@ -148,7 +146,7 @@ const App = (function(){
 
         init: function() {
 
-        UI.saveTaskBtn.addEventListener("click", function() {
+        $('#task-form').submit(function(event) {
 
             if(UI.taskInput.value) {
                 //Check the id:
