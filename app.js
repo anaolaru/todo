@@ -16,7 +16,7 @@ const UI = (function(){
           <td>${task.title}</td>
           <td>
             <div class="buttons">
-             <button data-id="${task.id}" data-control="edit" type="button" class="btn btn-primary btn-sm">Edit</button>
+             <button data-id="${task.id}" data-control="Edit" data-toggle="modal" data-target="#taskModal" type="button" class="btn btn-primary btn-sm">Edit</button>
              <button data-id="${task.id}" data-control="delete" type="button" class="btn btn-danger btn-sm">Delete</button>
             </div>
           </td>
@@ -166,20 +166,23 @@ const App = (function(){
             }
         });
 
+        $('#taskModal').on('show.bs.modal', function (event) {
+          var button = $(event.relatedTarget) // Button that triggered the modal
+          var recipient = button.data('control') // Extract info from data-control attribute
+          var modal = $(this)
+          modal.find('.modal-title').text(recipient + ' task')
+        })
+
         //Clears value of field when the modal has finished being hidden from the user
         $('#taskModal').on('hidden.bs.modal', function(event) {
             UI.taskInput.value= "";
         });
 
         UI.tableBody.addEventListener("click", function(event){
-            if(event.target.getAttribute("data-control") === "edit" ) {
-                //Show 'Edit task' copy rather than 'New task'- need to find a solution that doesn't set the copy once
-                // let modalHeading = document.getElementById('taskModalLabel');
-                // modalHeading.textContent = "Edit task";
+            if(event.target.getAttribute("data-control") === "Edit" ) {
+                //$('#taskModal').modal('show');
 
-                $('#taskModal').modal('show');
-
-                 id = parseInt(event.target.getAttribute("data-id"));
+                id = parseInt(event.target.getAttribute("data-id"));
 
                 UI.taskInput.value= Item.getItemById(id).title;
                 Storage.setItems(Item.getItems());
